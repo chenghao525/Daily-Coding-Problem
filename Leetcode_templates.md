@@ -178,3 +178,131 @@ class Solution {
 }
 
 ```
+
+
+```Java
+// TreeTraversal
+// Pre-Order:
+//Iterative
+ public List<Integer> preorderTraversal(TreeNode root){
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> res = new LinkedList<>();
+        
+        if(root == null) return res;
+        stack.push(root);
+        while(!stack.isEmpty()){
+            root = stack.pop();
+            res.add(root.val);
+            if(root.right != null) stack.push(root.right);
+            if(root.left != null) stack.push(root.left);
+        }
+        return res;
+  }
+
+
+//Recursive
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        helper(root, res);
+        return res;
+    }
+    
+    public void helper(TreeNode root, List<Integer> res) {
+        if(root == null) return;
+        res.add(root.val);
+        helper(root.left, res);
+        helper(root.right, res);
+    }
+}
+
+
+
+
+
+```
+
+```Java
+// Inorder:
+//Iterative
+ public List<Integer> inorderTraversal(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> res = new ArrayList<>();
+        
+        
+        
+        while(!stack.isEmpty() || root != null){
+            while(root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            
+            root = stack.pop();
+            res.add(root.val);
+            root = root.right;
+        }
+        return res;
+    }
+//Recursive
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        inorderTraversal(root, res);
+        return res;
+    }
+    
+    public void inorderTraversal(TreeNode root, List<Integer> res) {
+        if(root == null) return;
+        inorderTraversal(root.left, res);
+        res.add(root.val);
+        inorderTraversal(root.right, res);
+  }
+```
+
+```Java
+// Inorder:
+//Iterative
+
+
+
+```
+
+```Python
+//BackTracking
+def backtrack(candidate):
+    if find_solution(candidate):
+        output(candidate)
+        return
+    
+    # iterate all possible candidates.
+    for next_candidate in list_of_candidates:
+        if is_valid(next_candidate):
+            # try this partial candidate solution
+            place(next_candidate)
+            # given the candidate, explore further.
+            backtrack(next_candidate)
+            # backtrack
+            remove(next_candidate)
+```
+
+```Java
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(candidates);
+        backTracking(candidates, target, new ArrayList<>(), res, 0);
+        return res;
+    }
+    
+    private void backTracking(int[] candidates, int target, List<Integer>curRes,List<List<Integer>>res, int start){
+        if(target < 0)return;
+        if(target == 0) {res.add(new ArrayList<>(curRes));return;}
+        
+        for(int i=start;i<candidates.length && target >= candidates[i];i++){
+            if(i>start && candidates[i]==candidates[i-1])continue;
+            curRes.add(candidates[i]);
+            backTracking(candidates, target-candidates[i], curRes, res, i+1);
+            curRes.remove(curRes.size()-1);
+        }
+    }
+}
+```
